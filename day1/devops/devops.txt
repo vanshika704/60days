@@ -1,0 +1,157 @@
+🚀 Linux Basics (DevOps Level 1)
+1️⃣ pwd – Print Working Directory
+
+Shows current directory path
+
+Syntax:
+
+pwd
+
+
+Example:
+
+$ pwd
+/home/vanshika
+
+
+✅ Always helps to know where you are in the filesystem.
+
+2️⃣ ls – List Files & Directories
+
+Lists contents of a directory
+
+Syntax:
+
+ls [options] [directory]
+
+🔹 Common Options
+Option	Description
+-l	Long format (permissions, owner, size, date)
+-a	Include hidden files (files starting with .)
+-h	Human-readable sizes (ls -lh)
+-R	Recursive (list all subdirectories)
+
+Example:
+
+$ ls -lah
+
+3️⃣ cd – Change Directory
+
+Moves between directories
+
+Syntax:
+
+cd [directory]
+cd ..      # Go up one level
+cd ~       # Go to home
+cd /       # Go to root
+
+
+Example:
+
+$ cd /var/log
+$ pwd
+/var/log
+
+4️⃣ mkdir – Make Directory
+
+Create a new directory
+
+Syntax:
+
+mkdir [options] directory_name
+
+🔹 Common Options
+Option	Description
+-p	Create parent directories if not exist
+
+Example:
+
+$ mkdir project
+$ mkdir -p project/src/components
+
+5️⃣ rm – Remove Files/Directories
+
+Deletes files or directories
+
+Syntax:
+
+rm [options] file
+
+🔹 Common Options
+Option	Description
+-r	Recursive (delete directory & contents)
+-f	Force deletion, no prompt
+
+Example:
+
+$ rm file.txt
+$ rm -rf old_project
+
+
+⚠️ Danger: rm -rf /path/to/dir → irreversible
+
+6️⃣ cp – Copy Files/Directories
+
+Copies files or directories
+
+Syntax:
+
+cp [options] source destination
+
+🔹 Common Options
+Option	Description
+-r	Copy directories recursively
+-v	Verbose (shows what’s being copied)
+
+Example:
+
+$ cp file.txt backup.txt
+$ cp -r project project_backup
+
+7️⃣ mv – Move/Rename Files/Directories
+
+Moves or renames files
+
+Syntax:
+
+mv source destination
+
+
+Example:
+
+$ mv file.txt /home/vanshika/Documents/
+$ mv oldname.txt newname.txt
+
+
+✅ mv can rename or move files in one command.
+
+8️⃣ Filesystem Hierarchy (Linux FS)
+Directory	Purpose
+/	Root directory
+/bin	Essential binaries (ls, cp, mv)
+/sbin	System binaries (mount, ifconfig)
+/etc	Configuration files
+/home	User home directories
+/var	Variable data (logs, databases)
+/tmp	Temporary files
+/usr	User programs and libraries
+/lib	Shared libraries
+/dev	Device files
+/proc	Kernel & process info
+
+⚠️ Remember: Everything in Linux is a file, including devices!
+
+🔹 Quick Tips (DevOps Interview Ready)
+
+ls -lh → human-readable file sizes
+
+rm -rf → never run blindly as root
+
+cd - → go to previous directory
+
+mkdir -p a/b/c → create nested dirs in one command
+
+tab → autocomplete paths in terminal
+
+pwd → verify where you are before running destructive commands

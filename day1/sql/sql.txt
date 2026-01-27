@@ -1,0 +1,177 @@
+📊 SQL FOUNDATIONS
+1️⃣ SELECT Clause
+🔹 Purpose
+
+Used to retrieve columns from a table.
+
+📌 Syntax
+SELECT column1, column2
+FROM table_name;
+
+🧠 Example
+SELECT name, salary
+FROM employees;
+
+
+👉 Retrieves only name and salary.
+
+2️⃣ DISTINCT
+🔹 Purpose
+
+Removes duplicate values from result set.
+
+📌 Syntax
+SELECT DISTINCT column_name
+FROM table_name;
+
+🧠 Example
+SELECT DISTINCT department
+FROM employees;
+
+
+📌 Applies to all selected columns together, not individually.
+
+❌ Trap:
+
+SELECT DISTINCT department, salary
+FROM employees;
+
+
+→ Distinct is applied on (department, salary) pair.
+
+3️⃣ WHERE Clause
+🔹 Purpose
+
+Filters rows based on conditions.
+
+📌 Syntax
+SELECT *
+FROM table_name
+WHERE condition;
+
+🧠 Example
+SELECT *
+FROM employees
+WHERE salary > 50000;
+
+4️⃣ AND / OR / NOT
+🔹 AND
+
+All conditions must be true.
+
+SELECT *
+FROM employees
+WHERE department = 'IT' AND salary > 60000;
+
+🔹 OR
+
+Any one condition true.
+
+SELECT *
+FROM employees
+WHERE department = 'HR' OR department = 'Finance';
+
+🔹 NOT
+
+Negates condition.
+
+SELECT *
+FROM employees
+WHERE NOT department = 'HR';
+
+⚠️ Operator Precedence (VERY IMPORTANT)
+Priority:
+
+NOT
+
+AND
+
+OR
+
+❌ Wrong assumption:
+
+WHERE A OR B AND C
+
+
+✔ Actual meaning:
+
+WHERE A OR (B AND C)
+
+
+✔ Always use parentheses:
+
+WHERE (A OR B) AND C;
+
+🔁 Query Execution Order (CRITICAL 🔥)
+
+SQL is NOT executed in the order we write it.
+
+✅ ACTUAL EXECUTION ORDER
+1️⃣ FROM
+2️⃣ WHERE
+3️⃣ SELECT
+
+🧠 Explanation
+
+FROM → identifies the table
+
+WHERE → filters rows
+
+SELECT → chooses columns
+
+📌 Example
+SELECT name, salary
+FROM employees
+WHERE salary > 50000;
+
+Execution:
+
+FROM employees → load table
+
+WHERE salary > 50000 → filter rows
+
+SELECT name, salary → show columns
+
+⚠️ WHY THIS MATTERS (INTERVIEW TRAP)
+
+❌ This fails:
+
+SELECT salary * 12 AS annual_salary
+FROM employees
+WHERE annual_salary > 600000;
+
+❌ Reason
+
+WHERE executes before SELECT, so alias doesn’t exist yet.
+
+✔ Correct Way (Using subquery)
+SELECT *
+FROM (
+    SELECT salary * 12 AS annual_salary
+    FROM employees
+) t
+WHERE annual_salary > 600000;
+
+🧠 Common Mistakes Summary
+Mistake	Why
+Using alias in WHERE	Alias created after WHERE
+Forgetting DISTINCT scope	Works on entire row
+Ignoring AND/OR precedence	Logical error
+Thinking SQL runs top-down	Wrong execution order
+📌 Exam-Ready Definitions
+
+SELECT:
+
+Used to retrieve specific columns from a database table.
+
+DISTINCT:
+
+Eliminates duplicate rows from the result set.
+
+WHERE:
+
+Filters records based on given conditions.
+
+Query Execution Order:
+
+FROM → WHERE → SELECT

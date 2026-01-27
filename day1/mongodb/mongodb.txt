@@ -1,0 +1,127 @@
+🍃 MongoDB Basics
+1️⃣ SQL vs NoSQL
+Feature	SQL (Relational DB)	NoSQL (MongoDB)
+Structure	Tables with rows & columns	Collections with documents
+Schema	Fixed schema	Dynamic/flexible schema
+Query Language	SQL	MongoDB Query Language (JSON-like)
+Relationships	Joins	Embedding / referencing
+Scaling	Vertical	Horizontal
+Example	MySQL, PostgreSQL	MongoDB, CouchDB
+
+Key takeaway:
+MongoDB is document-oriented, schema-flexible, and scales horizontally easily.
+
+2️⃣ Document Structure
+🔹 Documents = JSON-like objects
+
+A single record in MongoDB is called a document.
+
+Example:
+
+{
+    "_id": 1,
+    "name": "Vanshika",
+    "age": 22,
+    "skills": ["Java", "Python", "MongoDB"],
+    "address": { "city": "Delhi", "state": "Delhi" }
+}
+
+
+_id → unique identifier
+
+Values can be strings, numbers, arrays, objects
+
+Flexible → different documents in same collection can have different fields
+
+🔹 Collections
+
+Like tables in SQL
+
+Stores multiple documents
+
+db.employees.insertOne({
+    "name": "Alice",
+    "age": 30,
+    "department": "IT"
+})
+
+
+db.employees.find() → retrieve documents
+
+3️⃣ BSON
+
+Binary JSON
+
+MongoDB stores documents in BSON format internally
+
+Supports:
+
+Extra data types (Date, Binary)
+
+Faster parsing than plain JSON
+
+Example:
+
+{ "name": "Bob", "joined": ISODate("2026-01-27") }
+
+4️⃣ Why MongoDB?
+🔹 Advantages
+
+Flexible Schema
+
+No need to predefine table structure
+
+Add/remove fields anytime
+
+Horizontal Scalability
+
+Sharding → split large datasets across servers
+
+Document Model = Natural Mapping
+
+Nested data stored as documents (JSON → easy mapping for apps)
+
+High Performance
+
+Reads/writes are fast for large unstructured data
+
+Aggregation & Indexing
+
+Powerful aggregation pipeline (like GROUP BY)
+
+Secondary indexes for fast queries
+
+Popular in modern apps
+
+Node.js, Python, MEAN/MERN stack, big data
+
+🔹 Quick MongoDB Commands
+// Show collections
+show collections
+
+// Insert document
+db.employees.insertOne({name: "Alice", age: 30})
+
+// Find all
+db.employees.find()
+
+// Find with condition
+db.employees.find({age: {$gt: 25}})
+
+// Update
+db.employees.updateOne({name: "Alice"}, {$set: {age: 31}})
+
+// Delete
+db.employees.deleteOne({name: "Alice"})
+
+✅ Exam / Interview Key Points
+
+SQL → tables, fixed schema; NoSQL → collections, flexible schema
+
+Document = JSON/BSON object
+
+MongoDB uses BSON internally
+
+_id is mandatory
+
+Best for unstructured/semi-structured data and scalable apps

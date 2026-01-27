@@ -1,0 +1,110 @@
+🏗️ System Design (Day 1)
+1️⃣ What is System Design?
+
+System Design is the process of planning and designing the architecture of a software system to meet specific functional and non-functional requirements.
+
+🔹 Goals:
+
+Scalability → Handle more users/data
+
+Reliability → System should not fail
+
+Maintainability → Easy to update/extend
+
+Performance → Fast response & low latency
+
+🔹 Example:
+
+Design Twitter feed or WhatsApp messaging system
+
+Decide: databases, servers, APIs, caching, load balancing
+
+2️⃣ HLD vs LLD
+Feature	High-Level Design (HLD)	Low-Level Design (LLD)
+Scope	Big picture / architecture	Detailed design / code-level
+Audience	Architects, Managers	Developers
+Components	Modules, Services, DB, APIs	Classes, Functions, Data Structures
+Level	Abstract	Concrete / Detailed
+Diagram	System Architecture Diagram	Class Diagram, Sequence Diagram
+Example	“Use Redis for caching, MySQL for DB”	“Class User {id, name}, Method sendMessage()”
+
+Rule of Thumb: HLD = What, LLD = How
+
+3️⃣ Functional vs Non-functional Requirements
+🔹 Functional Requirements (FR)
+
+Describe what system should do
+
+Example:
+
+Users can send messages
+
+Users can like a post
+
+Payment processing
+
+🔹 Non-functional Requirements (NFR)
+
+Describe how system should perform
+
+Example:
+
+Latency < 100ms
+
+99.99% uptime
+
+Can handle 1 million concurrent users
+
+Scalability, Security, Reliability
+
+✅ Interview Tip: Always clarify FR + NFR at the start of system design interview
+
+4️⃣ Capacity Planning Basics
+🔹 What is Capacity Planning?
+
+Estimating resources required to support expected system load
+
+Ensures system can scale without failure
+
+🔹 Key Metrics
+
+Traffic → Requests per second (RPS)
+
+Storage → Database size, file storage
+
+Compute → CPU, Memory, Number of servers
+
+Network → Bandwidth requirements
+
+🔹 Steps
+
+Estimate current load (e.g., 10k users/day)
+
+Estimate future growth (e.g., 10% month-over-month)
+
+Calculate resource requirements (servers, DB, caching)
+
+Include redundancy for high availability
+
+🔹 Quick Example: WhatsApp
+Component	Load / Planning
+Users	2 billion active users
+Messages/day	100 billion
+DB	Sharded MySQL + Cassandra
+Cache	Redis for active conversations
+Servers	Distributed across regions, auto-scaling
+Network	High bandwidth, low latency (50-100ms)
+
+✅ This is capacity planning + high-level design together
+
+📌 Interview Tips:
+
+Always start with requirements
+
+Draw HLD first, discuss trade-offs
+
+Mention FR + NFR
+
+Include scaling strategy, caching, load balancing
+
+Always justify decisions with numbers

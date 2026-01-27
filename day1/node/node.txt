@@ -1,0 +1,119 @@
+🟢 Node.js Basics
+1️⃣ V8 Engine
+🔹 What is V8?
+
+V8 is Google’s JavaScript engine
+
+Compiles JS → Machine code
+
+Originally built for Chrome, now used in Node.js
+
+🔹 Role in Node.js
+
+Node runs JS outside the browser using V8
+
+Executes server-side JS very fast
+
+Handles JS runtime, memory management, and garbage collection
+
+Example:
+
+console.log("Hello from V8!");
+
+
+V8 compiles it to native machine code → executes instantly
+
+2️⃣ Non-blocking I/O (Asynchronous I/O)
+🔹 What it means
+
+Node.js uses event-driven, non-blocking I/O
+
+Does not wait for file, database, or network operations to finish
+
+Other tasks continue executing in the meantime
+
+🔹 Why it matters
+
+Perfect for high concurrency (thousands of simultaneous requests)
+
+Uses single-threaded event loop + callback queue
+
+CPU-intensive tasks may block, so use worker threads
+
+🔹 Example
+const fs = require('fs');
+
+console.log("Start reading file");
+
+fs.readFile('data.txt', 'utf8', (err, data) => {
+    if (err) throw err;
+    console.log("File content:", data);
+});
+
+console.log("End of program");
+
+
+Output:
+
+Start reading file
+End of program
+File content: <content of data.txt>
+
+
+✅ Notice: File reading happens asynchronously, Node doesn’t block
+
+3️⃣ Process Object
+🔹 What is process?
+
+Global Node object → provides info about current process
+
+Always available → no require needed
+
+🔹 Useful Properties
+Property	Description
+process.pid	Process ID
+process.version	Node.js version
+process.platform	OS platform
+process.argv	Command line arguments (array)
+process.env	Environment variables
+🔹 Example
+console.log("PID:", process.pid);
+console.log("Node Version:", process.version);
+console.log("Platform:", process.platform);
+console.log("Args:", process.argv);
+
+4️⃣ Environment Variables (process.env)
+🔹 What it is
+
+Stores config variables outside your code
+
+Useful for DB passwords, API keys, or ports
+
+🔹 Example
+// Access env variable
+console.log("PORT:", process.env.PORT);
+
+// Set env variable (Linux/Mac)
+$ export PORT=3000
+
+// Windows (CMD)
+> set PORT=3000
+
+🔹 Using in Code
+const port = process.env.PORT || 8000;  // default 8000
+console.log("Server running on port", port);
+
+
+✅ Best practice: Never hardcode sensitive configs
+
+⚡ Key Takeaways (Interview Gold)
+
+V8 engine → compiles JS to machine code, powers Node
+
+Non-blocking I/O → Node handles multiple tasks simultaneously
+
+process object → info about running Node process
+
+process.env → environment variables for safe configs
+
+Single-threaded + event loop → fast & scalable
