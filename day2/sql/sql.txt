@@ -1,0 +1,163 @@
+📊 SQL FILTERING OPERATORS
+
+IN, BETWEEN, LIKE, IS NULL
+
+Assume a table:
+
+EMPLOYEE
+--------------------------------
+emp_id | name | salary | dept | email
+--------------------------------
+1      | Asha | 30000  | HR   | asha@gmail.com
+2      | Ravi | 45000  | IT   | NULL
+3      | Neha | 60000  | IT   | neha@company.com
+4      | Amit | 52000  | FIN  | NULL
+5      | Pooja| 40000  | HR   | pooja@yahoo.com
+
+1️⃣ IN — Multiple values filter
+🔹 What is IN?
+
+IN is used to check whether a column value matches any value in a given list.
+
+📌 Replacement for multiple OR conditions.
+
+✅ Syntax
+SELECT * FROM table
+WHERE column IN (value1, value2, ...);
+
+🔹 Example
+
+Employees working in HR or IT:
+
+SELECT * 
+FROM EMPLOYEE
+WHERE dept IN ('HR', 'IT');
+
+
+✔ Same as:
+
+WHERE dept = 'HR' OR dept = 'IT'
+
+❌ Common mistake
+WHERE dept = ('HR','IT');  -- WRONG
+
+2️⃣ BETWEEN — Range filter
+🔹 What is BETWEEN?
+
+BETWEEN selects values within a given range (inclusive).
+
+📌 Includes start and end values.
+
+✅ Syntax
+SELECT * FROM table
+WHERE column BETWEEN low AND high;
+
+🔹 Example
+
+Employees with salary between 40,000 and 55,000:
+
+SELECT *
+FROM EMPLOYEE
+WHERE salary BETWEEN 40000 AND 55000;
+
+
+✔ Includes 40000 and 55000
+
+🔹 BETWEEN with dates
+SELECT *
+FROM EMPLOYEE
+WHERE joining_date BETWEEN '2023-01-01' AND '2023-12-31';
+
+❌ Common mistake
+WHERE salary BETWEEN 55000 AND 40000; -- WRONG order
+
+3️⃣ LIKE — Pattern matching
+🔹 What is LIKE?
+
+LIKE is used for pattern matching in strings.
+
+Uses wildcards.
+
+🔑 Wildcards
+Symbol	Meaning
+%	Any number of characters
+_	Exactly one character
+🔹 Examples
+
+🔹 Names starting with 'A':
+
+SELECT * 
+FROM EMPLOYEE
+WHERE name LIKE 'A%';
+
+
+🔹 Names ending with 'a':
+
+WHERE name LIKE '%a';
+
+
+🔹 Names containing 'mi':
+
+WHERE name LIKE '%mi%';
+
+
+🔹 Exactly 5-letter names:
+
+WHERE name LIKE '_____';
+
+❌ Common mistake
+WHERE name = '%A%';  -- WRONG
+
+4️⃣ IS NULL — Checking NULL values
+🔹 What is NULL?
+
+NULL means missing or unknown value
+It is not equal to 0 or empty string.
+
+🔹 Why NOT = NULL?
+
+Because NULL is not comparable using =.
+
+❌ WRONG:
+
+WHERE email = NULL;
+
+✅ Correct way
+SELECT *
+FROM EMPLOYEE
+WHERE email IS NULL;
+
+🔹 NOT NULL
+SELECT *
+FROM EMPLOYEE
+WHERE email IS NOT NULL;
+
+🔥 COMBINED EXAMPLES (VERY IMPORTANT)
+
+Employees from IT dept, salary between 40k–60k, email missing:
+
+SELECT *
+FROM EMPLOYEE
+WHERE dept = 'IT'
+  AND salary BETWEEN 40000 AND 60000
+  AND email IS NULL;
+
+🧠 INTERVIEW ONE-LINERS
+
+IN → checks multiple values
+
+BETWEEN → range (inclusive)
+
+LIKE → pattern matching
+
+IS NULL → checks missing values
+
+⚠️ MOST COMMON EXAM MISTAKES
+
+Using = NULL
+
+Forgetting % in LIKE
+
+Thinking BETWEEN is exclusive
+
+Wrong order in BETWEEN

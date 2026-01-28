@@ -1,0 +1,225 @@
+🏗️ System Design (Day 2 – Core Foundations)
+1️⃣ Client–Server Architecture
+🔹 What is it?
+
+A client requests services/resources.
+A server processes the request and sends back a response.
+
+Client  →  Request  →  Server
+Client  ←  Response ←  Server
+
+🔹 Examples
+
+Browser (client) → Web Server
+
+Mobile App → Backend API
+
+Postman → REST API
+
+🔹 Responsibilities
+
+Client
+
+UI
+
+Input validation
+
+Sends requests
+
+Server
+
+Business logic
+
+Authentication
+
+Database access
+
+🔹 Types
+
+2-tier: Client ↔ Server
+
+3-tier: Client ↔ Server ↔ Database
+
+N-tier: Microservices
+
+✅ Pros
+
+Centralized logic
+
+Easy maintenance
+
+Secure data storage
+
+❌ Cons
+
+Server bottleneck
+
+Network dependency
+
+2️⃣ Request–Response Lifecycle (VERY IMPORTANT)
+🔁 Step-by-step flow
+
+Client sends request (HTTP)
+
+Request reaches Load Balancer (optional)
+
+Server receives request
+
+Authentication & validation
+
+Business logic execution
+
+Database access
+
+Server creates response
+
+Response sent back to client
+
+Client → LB → Server → DB
+Client ← LB ← Server ← DB
+
+🔹 Example (GET request)
+GET /users/123 HTTP/1.1
+Host: api.example.com
+
+
+Server returns:
+
+{
+  "id": 123,
+  "name": "Vanshika"
+}
+
+🔹 Key Interview Point
+
+📌 Latency = Network + Processing + DB time
+
+3️⃣ REST vs RPC
+🔵 REST (Representational State Transfer)
+
+Resource-based
+
+Uses HTTP methods
+
+Stateless
+
+Example
+GET /users/1
+POST /users
+PUT /users/1
+DELETE /users/1
+
+🔴 RPC (Remote Procedure Call)
+
+Action-based
+
+Calls functions remotely
+
+Feels like local function call
+
+Example
+getUser(id=1)
+createUser(name="A")
+
+🆚 REST vs RPC (TABLE)
+Feature	REST	RPC
+Style	Resource-based	Action-based
+URL	Nouns	Verbs
+HTTP methods	Yes	Usually POST
+Readability	High	Lower
+Coupling	Loose	Tight
+Caching	Easy	Hard
+
+📌 gRPC = modern RPC using HTTP/2 + Protobuf
+
+🔑 Interview Verdict
+
+Public APIs → REST
+
+Internal microservices → gRPC
+
+4️⃣ Stateless vs Stateful Systems 🔥
+🟢 Stateless System
+
+Server does not store client state.
+
+Each request is independent
+
+Session stored on client (JWT, cookies)
+
+Example
+
+REST APIs
+
+JWT authentication
+
+Request 1 → Server (no memory)
+Request 2 → Server (no memory)
+
+🟢 Pros
+
+Easy scaling
+
+Load balancing friendly
+
+Fault tolerant
+
+🔴 Cons
+
+Larger request size
+
+Client responsibility
+
+🔴 Stateful System
+
+Server remembers client state.
+
+Session stored on server
+
+Depends on previous requests
+
+Example
+
+Traditional login sessions
+
+WebSockets
+
+Request → Server (session memory)
+
+🔴 Pros
+
+Faster access
+
+Less client data
+
+❌ Cons
+
+Hard to scale
+
+Sticky sessions needed
+
+🆚 Comparison
+Feature	Stateless	Stateful
+Server memory	❌	✅
+Scalability	High	Low
+Fault tolerance	High	Low
+Load balancing	Easy	Hard
+🧠 Interview One-Liners
+
+Client-server separates UI from logic.
+
+Request–response is the core web communication model.
+
+REST is resource-oriented, RPC is action-oriented.
+
+Stateless systems scale better.
+
+Stateful systems store session data on server.
+
+🔥 Common Interview Traps
+
+Saying REST uses only GET/POST ❌
+
+Mixing stateless with no authentication ❌
+
+Thinking RPC is outdated ❌

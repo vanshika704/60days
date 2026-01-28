@@ -1,0 +1,216 @@
+🧠 Node.js Event Loop
+
+(Call Stack, Callback Queue, Microtask Queue, Phases)
+➕ CommonJS vs ES Modules
+
+🌱 First: What is Node.js? (1-liner)
+
+Node.js is a JavaScript runtime that allows JavaScript to run outside the browser, built on V8 engine.
+
+Node is:
+
+Single-threaded
+
+Non-blocking
+
+Event-driven
+
+👉 Event Loop makes this possible.
+
+🔄 WHAT IS THE EVENT LOOP?
+🔹 Definition
+
+The Event Loop is a mechanism that:
+
+Continuously checks the Call Stack
+
+Pushes asynchronous callbacks when the stack is empty
+
+📌 It allows Node.js to handle multiple async operations using one thread.
+
+🧱 CORE COMPONENTS (VERY IMPORTANT)
+1️⃣ Call Stack
+🔹 What is it?
+
+A stack data structure
+
+Stores function calls
+
+Follows LIFO (Last In First Out)
+
+🔹 Example
+function a() {
+  b();
+}
+function b() {
+  console.log("Hello");
+}
+a();
+
+
+Execution order:
+
+a → b → console.log → pop → pop → pop
+
+
+📌 If call stack is busy → Node is blocked.
+
+2️⃣ Callback Queue (Macrotask Queue)
+🔹 What is it?
+
+Stores callbacks of:
+
+setTimeout
+
+setInterval
+
+setImmediate
+
+I/O callbacks
+
+Example:
+
+setTimeout(() => {
+  console.log("Timer");
+}, 0);
+
+
+📌 Even 0 ms goes to Callback Queue, not Call Stack.
+
+3️⃣ Microtask Queue (HIGH PRIORITY)
+🔹 What goes here?
+
+Promise.then
+
+Promise.catch
+
+queueMicrotask
+
+process.nextTick (Node only)
+
+📌 Microtasks run before callback queue
+
+🔥 Priority Order
+Call Stack
+↓
+Microtask Queue
+↓
+Callback Queue
+
+4️⃣ Event Loop Phases (NODE SPECIFIC 🔥)
+
+Node.js event loop has phases:
+
+🔹 Phases Order
+
+Timers
+
+setTimeout
+
+setInterval
+
+Pending Callbacks
+
+Some system-level callbacks
+
+Idle, Prepare
+
+Internal use
+
+Poll ⭐
+
+I/O callbacks
+
+Waits for new events
+
+Check
+
+setImmediate
+
+Close Callbacks
+
+Cleanup (socket.on('close'))
+
+📌 After each phase, microtasks are executed.
+
+🧪 CLASSIC INTERVIEW EXAMPLE
+console.log("start");
+
+setTimeout(() => console.log("timeout"), 0);
+
+Promise.resolve().then(() => console.log("promise"));
+
+console.log("end");
+
+🔹 Output
+start
+end
+promise
+timeout
+
+🔹 Why?
+
+Sync → call stack
+
+Promise → microtask queue
+
+setTimeout → callback queue
+
+⚠️ process.nextTick (Node-only)
+process.nextTick(() => console.log("nextTick"));
+
+
+📌 Runs before promises
+📌 Can starve event loop if abused
+
+➕ CommonJS vs ES Modules
+📦 CommonJS (require)
+🔹 Used by default in Node.js
+const fs = require("fs");
+
+🔹 Export
+module.exports = add;
+
+🔹 Import
+const add = require("./add");
+
+🔹 Features
+
+Synchronous loading
+
+Dynamic imports allowed
+
+Used in older Node projects
+
+🌍 ES Modules (import/export)
+🔹 Modern JavaScript standard
+import fs from "fs";
+
+🔹 Export
+export default add;
+export const sum = () => {};
+
+🔹 Import
+import add, { sum } from "./add.js";
+
+🔥 Key Differences (INTERVIEW TABLE)
+Feature	CommonJS	ES Modules
+Syntax	require	import
+Loading	Synchronous	Asynchronous
+Standard	Node-specific	JavaScript standard
+Top-level await	❌	✅
+Browser support	❌	✅
+File extension	.js	.mjs or "type":"module"
+🧠 When to use what?
+
+Node-only backend → CommonJS (legacy)
+
+Modern apps / frontend + backend → ES Modules
+
+🧠 One-line interview answers
+
+Event loop enables Node.js to perform non-blocking I/O using a single thread.
+
+Microtask queue has higher priority than callback queue.
+
+ES Modules are the official JavaScript module system.

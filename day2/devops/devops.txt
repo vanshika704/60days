@@ -1,0 +1,212 @@
+🐧 Linux Commands (DevOps – 2)
+
+cat, less, tail, grep, find
+
+1️⃣ cat — View & combine files
+🔹 What does cat do?
+
+cat stands for concatenate.
+It is mainly used to:
+
+Display file content
+
+Combine files
+
+Create small files
+
+✅ Syntax
+cat filename
+
+🔹 Examples
+
+View file content:
+
+cat file.txt
+
+
+View multiple files:
+
+cat file1.txt file2.txt
+
+
+Create a file:
+
+cat > notes.txt
+Hello Linux
+Ctrl + D
+
+
+Append to a file:
+
+cat >> notes.txt
+More text
+Ctrl + D
+
+⚠️ Limitation
+
+❌ Not good for large files (dumps everything at once)
+
+2️⃣ less — View large files safely
+🔹 What does less do?
+
+less lets you:
+
+View large files page by page
+
+Scroll up/down
+
+Search inside file
+
+📌 Preferred over cat for logs.
+
+✅ Syntax
+less filename
+
+🔹 Useful keys inside less
+Key	Action
+Space	Next page
+b	Previous page
+/word	Search
+n	Next match
+q	Quit
+🔹 Example
+less server.log
+
+3️⃣ tail — View end of file (logs ⭐)
+🔹 What does tail do?
+
+Displays the last lines of a file.
+
+📌 Mostly used for log monitoring.
+
+✅ Syntax
+tail filename
+
+🔹 Examples
+
+Last 10 lines (default):
+
+tail app.log
+
+
+Last 20 lines:
+
+tail -n 20 app.log
+
+
+Live log monitoring:
+
+tail -f app.log
+
+
+📌 -f = follow (real-time updates)
+
+4️⃣ grep — Search text inside files
+🔹 What does grep do?
+
+Searches for patterns/words in files.
+
+📌 Extremely important for DevOps.
+
+✅ Syntax
+grep "pattern" filename
+
+🔹 Examples
+
+Search word:
+
+grep "ERROR" app.log
+
+
+Case-insensitive search:
+
+grep -i "error" app.log
+
+
+Search in multiple files:
+
+grep "ERROR" *.log
+
+
+Show line numbers:
+
+grep -n "ERROR" app.log
+
+🔥 grep with pipes (REAL DEVOPS)
+tail -f app.log | grep "ERROR"
+
+5️⃣ find — Search files/directories
+🔹 What does find do?
+
+Finds files and directories based on:
+
+Name
+
+Type
+
+Size
+
+Time
+
+Permissions
+
+✅ Syntax
+find path condition
+
+🔹 Examples
+
+Find file by name:
+
+find /home -name "file.txt"
+
+
+Case-insensitive:
+
+find /home -iname "File.txt"
+
+
+Find only directories:
+
+find . -type d
+
+
+Find only files:
+
+find . -type f
+
+
+Find files larger than 100MB:
+
+find . -size +100M
+
+🔥 find + grep (INTERVIEW GOLD)
+find /var/log -name "*.log" | grep "app"
+
+🧠 COMMAND COMPARISON (EXAM QUICK VIEW)
+Command	Use
+cat	Show entire file
+less	Page-wise view
+tail	Last lines
+grep	Search text
+find	Search files
+❗ COMMON MISTAKES
+
+Using cat for huge files
+
+Forgetting quotes in grep
+
+Confusing find with grep
+
+Using relative path wrongly in find
+
+🧠 One-line interview answers
+
+cat displays file content.
+
+less is used to view large files interactively.
+
+tail -f monitors logs in real time.
+
+grep searches text patterns.
+
+find locates files/directories.
