@@ -1,0 +1,146 @@
+🚀 DevOps (Linux 4) — Disk & Network Commands
+1️⃣ df — Disk Free
+🔹 Purpose
+
+Shows disk space usage of mounted filesystems.
+
+✅ Syntax
+df
+df -h   # human-readable (GB/MB)
+df -T   # show filesystem type
+
+✅ Example
+$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1       50G   20G   28G  42% /
+tmpfs           2G    0    2G   0%  /dev/shm
+
+
+🔹 Columns
+
+Size = total size
+
+Used = used space
+
+Avail = available space
+
+Use% = usage %
+
+Mounted on = mount point
+
+🧠 Interview Tip
+
+Use df -h to quickly check which partition is full.
+
+2️⃣ du — Disk Usage of Files/Directories
+🔹 Purpose
+
+Shows disk space used by a directory or file.
+
+✅ Syntax
+du [options] path
+du -sh /var/log
+
+
+-s → summary (only total)
+
+-h → human-readable
+
+✅ Example
+$ du -sh /home/vanshika
+1.2G    /home/vanshika
+
+
+🔹 Tip: Find largest directories
+
+du -sh * | sort -hr | head -5
+
+🧠 Interview Tip
+
+Combine du + sort to locate space hogs.
+
+3️⃣ netstat — Network Status
+🔹 Purpose
+
+Show active network connections, listening ports, routing tables.
+
+✅ Syntax
+netstat
+netstat -tulpn
+
+
+-t → TCP connections
+
+-u → UDP connections
+
+-l → listening ports
+
+-p → show PID/program name
+
+-n → numeric IPs/ports
+
+✅ Example
+$ netstat -tulpn
+Proto Recv-Q Send-Q Local Address       Foreign Address State PID/Program
+tcp   0      0 0.0.0.0:22            0.0.0.0:*       LISTEN 1234/sshd
+
+
+🔹 Shows which service is listening on which port
+
+🧠 Interview Tip
+
+Check open ports or which service is using a port.
+
+4️⃣ curl — HTTP Requests
+🔹 Purpose
+
+Send HTTP requests from terminal → test APIs, download pages
+
+✅ Syntax
+curl http://example.com
+curl -I http://example.com   # headers only
+curl -X POST -d "name=John" http://example.com
+curl -s http://example.com    # silent mode
+
+✅ Example
+$ curl -I https://google.com
+HTTP/2 200
+content-type: text/html; charset=ISO-8859-1
+
+🧠 Interview Tip
+
+curl is standard for API testing and checking response codes.
+
+5️⃣ wget — Download Files
+🔹 Purpose
+
+Download files from the internet via terminal
+
+✅ Syntax
+wget <url>
+wget -O filename <url>   # custom output name
+wget -c <url>            # resume download
+
+✅ Example
+wget https://example.com/sample.zip
+
+🧠 Interview Tip
+
+wget vs curl:
+
+wget → download files easily
+
+curl → more flexible, API testing
+
+🔹 Quick Comparison Table
+Command	Purpose	Key Option
+df	Disk space usage	-h
+du	Directory/file usage	-sh
+netstat	Network connections	-tulpn
+curl	Test HTTP/REST APIs	-I, -X, -d
+wget	Download files	-O, -c
+🔥 Interview Traps
+
+❌ Confusing df vs du
+❌ Forgetting sudo with netstat -p
+❌ Using curl without -I for header check

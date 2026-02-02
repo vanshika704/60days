@@ -1,0 +1,210 @@
+🍃 MongoDB Logic Operators
+$and, $or, $not, $elemMatch
+
+Assume this users collection:
+
+{
+  _id: 1,
+  name: "Rahul",
+  age: 25,
+  role: "admin",
+  isActive: true,
+  skills: ["js", "node", "mongo"],
+  scores: [78, 85, 92]
+}
+
+1️⃣ $and — ALL conditions must be true
+🧠 Meaning
+
+Match documents where every condition is satisfied.
+
+✅ Syntax
+{ $and: [ condition1, condition2 ] }
+
+✅ Example
+
+Find users whose age > 20 AND active
+
+db.users.find({
+  $and: [
+    { age: { $gt: 20 } },
+    { isActive: true }
+  ]
+})
+
+🔥 Shortcut (VERY IMPORTANT)
+
+MongoDB automatically applies $and when fields are different.
+
+db.users.find({
+  age: { $gt: 20 },
+  isActive: true
+})
+
+
+✔ This is the preferred way
+
+❌ When $and is REQUIRED
+
+When same field has multiple conditions
+
+db.users.find({
+  $and: [
+    { age: { $gt: 20 } },
+    { age: { $lt: 30 } }
+  ]
+})
+
+🧠 Interview Line
+
+$and is implicit when querying different fields, explicit when using multiple conditions on the same field.
+
+2️⃣ $or — ANY condition can be true
+🧠 Meaning
+
+Match documents where at least one condition is true.
+
+✅ Syntax
+{ $or: [ condition1, condition2 ] }
+
+✅ Example
+
+Find users who are admin OR manager
+
+db.users.find({
+  $or: [
+    { role: "admin" },
+    { role: "manager" }
+  ]
+})
+
+🔍 Another Example
+
+Age < 18 OR age > 60
+
+db.users.find({
+  $or: [
+    { age: { $lt: 18 } },
+    { age: { $gt: 60 } }
+  ]
+})
+
+🧠 Interview Line
+
+$or performs logical OR across multiple conditions and requires array syntax.
+
+3️⃣ $not — NEGATES a condition
+🧠 Meaning
+
+Matches documents where the condition is NOT true
+
+⚠️ $not must be used with another operator
+
+❌ WRONG
+{ age: { $not: 30 } }
+
+✅ Correct Usage
+
+Find users whose age is NOT greater than 30
+
+db.users.find({
+  age: { $not: { $gt: 30 } }
+})
+
+✅ Another Example
+
+Role is NOT admin
+
+db.users.find({
+  role: { $not: { $eq: "admin" } }
+})
+
+🧠 Interview Trap
+
+$not ≠ $ne
+
+{ role: { $ne: "admin" } }      // simpler
+{ role: { $not: { $eq: "admin" } } } // logical NOT
+
+4️⃣ $elemMatch — MATCH CONDITIONS IN THE SAME ARRAY ELEMENT 🔥
+🧠 WHY $elemMatch EXISTS (VERY IMPORTANT)
+
+Without $elemMatch, MongoDB may match:
+
+one condition from one array element
+
+another condition from another element
+
+That gives WRONG results.
+
+Example Array
+scores: [78, 85, 92]
+
+❌ WRONG (Without $elemMatch)
+db.users.find({
+  scores: { $gt: 80, $lt: 90 }
+})
+
+
+This may match:
+
+92 (gt 80)
+
+78 (lt 90)
+
+❌ Even though no single element satisfies both
+
+✅ Correct (With $elemMatch)
+
+Find users with a score between 80 and 90
+
+db.users.find({
+  scores: {
+    $elemMatch: { $gt: 80, $lt: 90 }
+  }
+})
+
+
+✔ Ensures same array element satisfies all conditions
+
+🔥 Object Array Example
+orders: [
+  { item: "Laptop", qty: 1 },
+  { item: "Phone", qty: 3 }
+]
+
+
+Find orders where Laptop qty ≥ 2
+
+db.orders.find({
+  orders: {
+    $elemMatch: {
+      item: "Laptop",
+      qty: { $gte: 2 }
+    }
+  }
+})
+
+🧠 Interview Line
+
+$elemMatch ensures multiple conditions apply to the same array element.
+
+5️⃣ Combining Logical Operators (REAL WORLD)
+db.users.find({
+  $and: [
+    { age: { $gt: 25 } },
+    {
+      $or: [
+        { role: "admin" },
+        { role: "manager" }
+      ]
+    }
+  ]
+})
+
+🧠 Summary Table (MEMORIZE)
+Operator	Meaning
+$and	ALL conditions true
+$or	ANY condition true
+$not	Negates a condition
+$elemMatch	Same array element match

@@ -1,0 +1,157 @@
+📊 SQL: ORDER BY, LIMIT, OFFSET
+1️⃣ ORDER BY (ASC / DESC)
+🔹 Purpose
+
+Used to sort query results.
+
+🔹 Syntax
+SELECT column1, column2
+FROM table_name
+ORDER BY column_name ASC|DESC;
+
+🔹 Default Order
+ORDER BY column_name
+
+
+➡ Defaults to ASC (ascending)
+
+✅ Example
+
+Table: Employees
+
+id	name	salary
+1	A	50000
+2	B	70000
+3	C	60000
+SELECT name, salary
+FROM Employees
+ORDER BY salary DESC;
+
+
+📤 Output:
+
+B 70000
+C 60000
+A 50000
+
+🔹 Multiple Columns Sorting
+SELECT *
+FROM Employees
+ORDER BY department ASC, salary DESC;
+
+
+➡ Sort by department first, then salary inside department.
+
+2️⃣ LIMIT
+🔹 Purpose
+
+Restricts number of rows returned.
+
+🔹 Syntax (MySQL / PostgreSQL)
+SELECT *
+FROM table
+LIMIT 5;
+
+
+➡ Returns first 5 rows
+
+✅ Example
+SELECT *
+FROM Employees
+ORDER BY salary DESC
+LIMIT 3;
+
+
+➡ Top 3 highest paid employees
+
+3️⃣ OFFSET
+🔹 Purpose
+
+Skips number of rows before returning results
+(used for pagination)
+
+🔹 Syntax
+SELECT *
+FROM table
+LIMIT 5 OFFSET 10;
+
+
+➡ Skip first 10 rows, return next 5
+
+📄 Pagination Example
+
+Page size = 5
+
+Page	Query
+Page 1	LIMIT 5 OFFSET 0
+Page 2	LIMIT 5 OFFSET 5
+Page 3	LIMIT 5 OFFSET 10
+🔹 ORDER BY + LIMIT + OFFSET (Most Used Combo)
+SELECT *
+FROM Employees
+ORDER BY salary DESC
+LIMIT 5 OFFSET 5;
+
+
+➡ 6th–10th highest salaries
+
+🔹 Execution Order (VERY IMPORTANT ⚠️)
+FROM
+WHERE
+GROUP BY
+HAVING
+SELECT
+ORDER BY
+LIMIT / OFFSET
+
+
+➡ You cannot use column alias in WHERE
+➡ You can use alias in ORDER BY
+
+🔹 Interview Traps ⚠️
+❌ Without ORDER BY
+SELECT * FROM Employees LIMIT 5;
+
+
+🚫 Result is not guaranteed
+
+✔ Always use ORDER BY with LIMIT
+
+❌ OFFSET on Large Tables
+
+OFFSET becomes slow for big datasets.
+
+✔ Use keyset pagination instead:
+
+WHERE id > last_seen_id
+LIMIT 5;
+
+🔹 DB-Specific Syntax Differences
+Database	Syntax
+MySQL / PostgreSQL	LIMIT x OFFSET y
+MySQL alt	LIMIT y, x
+SQL Server	OFFSET y ROWS FETCH NEXT x ROWS ONLY
+Oracle	FETCH FIRST x ROWS ONLY
+🎯 Interview One-Liners
+
+ORDER BY sorts result set
+
+LIMIT restricts number of rows
+
+OFFSET skips rows (pagination)
+
+OFFSET is expensive for large data
+
+LIMIT without ORDER BY is unsafe
+
+🔥 Common Interview Questions
+
+Get 2nd highest salary
+
+Top N records per group
+
+Pagination queries
+
+Why OFFSET is slow?
+
+Difference between LIMIT & FETCH

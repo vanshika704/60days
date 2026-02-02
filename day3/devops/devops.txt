@@ -1,0 +1,161 @@
+🚀 Linux Commands (DevOps Level 3)
+
+chmod | chown | ps | top | kill
+
+1️⃣ chmod — Change File Permissions
+🔹 Purpose
+
+Controls who can read / write / execute a file.
+
+🔹 Permission Types
+r → read  (4)
+w → write (2)
+x → execute (1)
+
+🔹 Permission Structure
+-rwx r-x r--
+ │    │    │
+ │    │    └── others
+ │    └────── group
+ └────────── owner
+
+✅ Numeric Mode (Most Used)
+chmod 755 file.sh
+
+Number	Meaning
+7	rwx
+5	r-x
+4	r--
+
+➡ Owner: rwx
+➡ Group: r-x
+➡ Others: r-x
+
+✅ Symbolic Mode
+chmod u+x file.sh   # owner execute
+chmod g-w file.txt  # remove write from group
+chmod o+r file.txt  # add read to others
+
+🔥 Interview Tip
+
+Use numeric mode in production, symbolic for quick edits.
+
+2️⃣ chown — Change Ownership
+🔹 Purpose
+
+Changes owner and group of files.
+
+🔹 Syntax
+chown user file
+chown user:group file
+
+✅ Example
+chown ubuntu:developers app.js
+
+🔹 Recursive Ownership
+chown -R user:group /project
+
+
+⚠️ Requires sudo
+
+3️⃣ ps — Process Status
+🔹 Purpose
+
+Shows running processes
+
+🔹 Common Commands
+ps
+
+
+➡ current shell processes
+
+ps aux
+
+
+➡ ALL processes (most important)
+
+🔹 Output Columns
+Column	Meaning
+PID	Process ID
+%CPU	CPU usage
+%MEM	Memory
+COMMAND	Command name
+🔹 Filter Process
+ps aux | grep node
+
+4️⃣ top — Live Process Monitor
+🔹 Purpose
+
+Real-time system monitoring
+
+🔹 Usage
+top
+
+🔹 Important Fields
+Field	Meaning
+PID	Process ID
+%CPU	CPU usage
+%MEM	Memory usage
+TIME+	CPU time
+🔹 Interactive Shortcuts
+Key	Action
+q	quit
+k	kill process
+P	sort by CPU
+M	sort by memory
+🧠 top vs ps
+ps	top
+Static snapshot	Live view
+Script-friendly	Interactive
+Lightweight	Heavier
+5️⃣ kill — Stop a Process
+🔹 Purpose
+
+Sends signals to a process.
+
+🔹 Common Signals
+Signal	Meaning
+15 (SIGTERM)	Graceful stop
+9 (SIGKILL)	Force kill
+1 (SIGHUP)	Reload
+✅ Example
+kill 1234
+
+
+➡ SIGTERM (default)
+
+kill -9 1234
+
+
+➡ Force kill (last option)
+
+🔹 Kill by Name
+pkill node
+killall node
+
+🔥 Interview Traps ⚠️
+
+❌ Always using kill -9
+❌ Not knowing permission numbers
+❌ Confusing chmod vs chown
+❌ Forgetting sudo for ownership change
+
+🎯 Interview One-Liners (Memorize)
+
+chmod controls file permissions
+
+chown controls ownership
+
+ps aux lists all processes
+
+top shows live process usage
+
+kill sends signals to processes
+
+🔥 Real DevOps Scenario
+
+Node server consuming high CPU
+1️⃣ top → find PID
+2️⃣ ps aux | grep node
+3️⃣ kill PID
+4️⃣ kill -9 PID (if stuck)

@@ -1,0 +1,157 @@
+🍃 MongoDB Query Operators
+
+$eq, $gt, $lt, $in, $exists
+
+Assume a collection users:
+
+{
+  _id: 1,
+  name: "Amit",
+  age: 25,
+  role: "admin",
+  isActive: true
+}
+
+1️⃣ $eq (Equal)
+🔹 Purpose
+
+Matches documents where field value equals given value.
+
+🔹 Syntax
+{ field: { $eq: value } }
+
+✅ Example
+db.users.find({ age: { $eq: 25 } })
+
+
+📌 Shortcut (most used):
+
+db.users.find({ age: 25 })
+
+2️⃣ $gt (Greater Than)
+🔹 Purpose
+
+Matches values greater than given value.
+
+🔹 Syntax
+{ field: { $gt: value } }
+
+✅ Example
+db.users.find({ age: { $gt: 30 } })
+
+
+➡ age > 30
+
+3️⃣ $lt (Less Than)
+🔹 Purpose
+
+Matches values less than given value.
+
+🔹 Syntax
+{ field: { $lt: value } }
+
+✅ Example
+db.users.find({ age: { $lt: 18 } })
+
+
+➡ age < 18
+
+🔹 Combined $gt + $lt (Range Query)
+db.users.find({
+  age: { $gt: 20, $lt: 30 }
+})
+
+
+➡ 20 < age < 30
+
+4️⃣ $in (Match Multiple Values)
+🔹 Purpose
+
+Matches if field value is in given array.
+
+🔹 Syntax
+{ field: { $in: [v1, v2, v3] } }
+
+✅ Example
+db.users.find({
+  role: { $in: ["admin", "manager"] }
+})
+
+
+➡ role = admin OR manager
+
+5️⃣ $exists (Field Exists or Not)
+🔹 Purpose
+
+Checks whether a field exists in document, regardless of value.
+
+🔹 Syntax
+{ field: { $exists: true|false } }
+
+✅ Example
+db.users.find({ phone: { $exists: true } })
+
+
+➡ documents having phone field
+
+db.users.find({ phone: { $exists: false } })
+
+
+➡ documents without phone field
+
+🔥 IMPORTANT TRAPS (Interview Favorite)
+⚠️ $exists vs null
+{ phone: null }
+
+
+➡ Matches:
+
+phone: null
+
+phone does NOT exist
+
+✔ Correct way:
+
+{ phone: { $exists: false } }
+
+⚠️ $in vs $or
+{ role: { $in: ["admin", "user"] } }
+
+
+Same as:
+
+{ $or: [{ role: "admin" }, { role: "user" }] }
+
+
+✔ $in is cleaner & faster
+
+🔹 Operator Comparison Table
+Operator	Meaning
+$eq	equals
+$gt	greater than
+$lt	less than
+$in	matches any value in array
+$exists	field presence check
+🎯 Interview One-Liners
+
+MongoDB uses JSON-like query syntax
+
+$eq is optional for equality
+
+$gt / $lt are range operators
+
+$in replaces multiple OR conditions
+
+$exists checks field presence, not value
+
+🔥 Common Interview Questions
+
+Difference between $exists and null?
+
+$in vs $or
+
+Range query using MongoDB
+
+Find users whose age is between 18 and 25
+
+Find documents missing a field

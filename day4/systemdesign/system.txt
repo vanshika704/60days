@@ -1,0 +1,127 @@
+🏗️ System Design (Day 4)
+Latency, Throughput & Tail Latency (P95, P99)
+1️⃣ Latency
+🔹 Definition
+
+Time taken to process a single request end-to-end.
+
+Measured in ms or seconds
+
+Low latency = fast response
+
+🔹 Examples
+Scenario	Latency
+Simple API request	50ms
+Database query	100ms
+Image processing	500ms
+🔹 Interview Note
+
+Latency is per-request performance, not overall system capacity.
+
+2️⃣ Throughput
+🔹 Definition
+
+Number of requests processed per unit time.
+
+Measured in req/sec or transactions/sec
+
+High throughput = handles more traffic
+
+🔹 Examples
+Scenario	Throughput
+Single-threaded API	100 req/sec
+Horizontally scaled service	10,000 req/sec
+🔹 Relation
+
+Low latency ≠ high throughput
+High throughput ≠ low latency
+
+You need both for a performant system.
+
+3️⃣ Tail Latency — P95, P99
+🔹 Definition
+
+The slowest percentile of requests.
+
+P95 → 95% of requests are faster than this time
+
+P99 → 99% of requests are faster than this time
+
+🔹 Why Important?
+
+Average latency is misleading.
+
+Example:
+
+1000 requests → 950 requests < 50ms, 50 requests = 500ms
+Average = 72ms → seems fine
+Tail latency (P99) = 500ms → 1% users experience lag
+
+
+Users care about slowest experiences, not average
+
+🔹 Common Targets
+Metric	Goal
+P50	median response time
+P95	“most users” experience fast service
+P99	“99% of users” good experience
+🔹 Visualization
+Latency (ms)
+|
+|                   x P99
+|          x P95
+|     x
+| x P50
+|____________________ Time → requests
+
+
+X-axis → requests sorted by response time
+
+Y-axis → latency
+
+P95, P99 are percentile markers
+
+4️⃣ How to Reduce Tail Latency
+
+Parallelism
+
+Run tasks concurrently (async calls)
+
+Timeouts & Retries
+
+Fail fast + retry secondary service
+
+Caching
+
+Reduce DB or external service calls
+
+Load Balancing
+
+Spread traffic evenly
+
+Queueing & Rate Limiting
+
+Avoid spikes causing tail latency
+
+5️⃣ Latency vs Throughput vs Tail Latency Table
+Metric	Definition	Key Insight
+Latency	Time per request	Focus on speed
+Throughput	Requests/sec	Focus on capacity
+Tail Latency (P95/P99)	Slowest percentile	Focus on user experience
+🔹 Interview Tip
+
+FAANG systems care about tail latency, not just averages.
+Design questions often test: “How do you ensure 99% users get fast responses under high load?”
+
+6️⃣ Example Question
+
+Q: Design a video streaming API. How do you measure latency?
+A:
+
+Measure end-to-end response time for each request → Latency
+
+Track requests/sec → Throughput
+
+Track P95 / P99 latency → Tail latency (e.g., slow users)
+
+Optimize with caching + CDN + async streaming

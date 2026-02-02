@@ -1,0 +1,217 @@
+🏗️ System Design (Day 3)
+Scalability Basics • Vertical vs Horizontal Scaling • Bottlenecks
+1️⃣ What is Scalability?
+🔹 Definition
+
+Scalability is a system’s ability to handle increased load by adding resources without breaking performance.
+
+Load can be:
+
+More users
+
+More requests/sec
+
+More data
+
+More traffic
+
+🔹 Two Types
+
+Vertical Scaling (Scale Up)
+
+Horizontal Scaling (Scale Out)
+
+2️⃣ Vertical Scaling (Scale Up)
+🔹 What It Is
+
+Increase power of a single machine:
+
+More CPU
+
+More RAM
+
+Faster disk
+
+✅ Example
+
+Upgrade server from 8GB → 64GB RAM
+
+Move DB to larger instance
+
+👍 Pros
+
+✔ Easy to implement
+✔ No code changes
+✔ Good for early-stage systems
+
+👎 Cons
+
+❌ Hardware limit
+❌ Single Point of Failure
+❌ Expensive
+❌ Downtime during upgrade
+
+🧠 Interview Line
+
+Vertical scaling is simple but limited and not fault-tolerant.
+
+3️⃣ Horizontal Scaling (Scale Out)
+🔹 What It Is
+
+Add more machines:
+
+Multiple servers
+
+Load balancer in front
+
+✅ Example
+Client
+  ↓
+Load Balancer
+  ↓
+Server 1
+Server 2
+Server 3
+
+👍 Pros
+
+✔ Highly scalable
+✔ Fault tolerant
+✔ No upper limit (theoretically)
+✔ Industry standard
+
+👎 Cons
+
+❌ Complex design
+❌ Needs stateless services
+❌ Data consistency challenges
+
+🧠 Interview Line
+
+Horizontal scaling is complex but provides reliability and high availability.
+
+4️⃣ Vertical vs Horizontal (FAANG Table)
+Feature	Vertical	Horizontal
+Add resources	Bigger machine	More machines
+Cost	High	Flexible
+Fault tolerance	❌ No	✅ Yes
+Downtime	Yes	No
+Scalability limit	Hardware bound	Practically unlimited
+Used by	Small apps	Large-scale systems
+5️⃣ Common Scalability Bottlenecks ⚠️
+🔥 1. Database Bottleneck
+
+Too many reads/writes
+
+Single DB instance
+
+Fix:
+
+Read replicas
+
+Caching (Redis)
+
+Sharding
+
+🔥 2. Application Server Bottleneck
+
+CPU-bound logic
+
+Too many synchronous calls
+
+Fix:
+
+Horizontal scaling
+
+Async processing
+
+Microservices
+
+🔥 3. Network Bottleneck
+
+Large payloads
+
+Chatty APIs
+
+Fix:
+
+Compression
+
+CDN
+
+Batching
+
+🔥 4. Disk / Storage Bottleneck
+
+Slow disk I/O
+
+Logs growing fast
+
+Fix:
+
+SSDs
+
+Distributed storage
+
+Log rotation
+
+🔥 5. Cache Miss Bottleneck
+
+Cache not used properly
+
+Fix:
+
+Cache hot data
+
+Proper TTL
+
+Cache-aside pattern
+
+6️⃣ Stateless vs Stateful (VERY IMPORTANT)
+🔹 Stateless Services
+
+No user data stored in server memory
+
+Required for horizontal scaling
+
+✔ Store session in:
+
+Redis
+
+JWT
+
+🔹 Stateful = Scaling Nightmare
+
+❌ Sticky sessions
+❌ Hard failover
+
+7️⃣ Real Interview Example
+❓ “Your service is slow. What do you do?”
+
+Answer Structure:
+
+Identify bottleneck (CPU, DB, network)
+
+Apply vertical scaling temporarily
+
+Move to horizontal scaling
+
+Add caching
+
+Optimize DB
+
+🎯 Interview One-Liners (Memorize)
+
+Scalability ≠ performance
+
+Vertical scaling is limited
+
+Horizontal scaling is industry standard
+
+Databases are common bottlenecks
+
+Stateless services enable scale
+
+🧠 Golden Rule
+
+Scale reads with caching, scale writes with sharding.

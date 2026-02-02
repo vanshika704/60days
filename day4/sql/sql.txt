@@ -1,0 +1,63 @@
+✅ COUNT
+SELECT COUNT(*) 
+FROM employees;
+
+SELECT COUNT(salary) 
+FROM employees;
+
+SELECT COUNT(DISTINCT department_id)
+FROM employees;
+
+✅ SUM
+SELECT SUM(salary)
+FROM employees;
+
+SELECT SUM(salary)
+FROM employees
+WHERE department_id = 10;
+
+✅ AVG
+SELECT AVG(salary)
+FROM employees;
+
+SELECT AVG(salary)
+FROM employees
+WHERE department_id = 20;
+
+✅ MIN
+SELECT MIN(salary)
+FROM employees;
+
+SELECT MIN(hire_date)
+FROM employees;
+
+✅ MAX
+SELECT MAX(salary)
+FROM employees;
+
+SELECT MAX(hire_date)
+FROM employees;
+
+✅ Aggregates with GROUP BY
+SELECT department_id, COUNT(*) AS total_employees
+FROM employees
+GROUP BY department_id;
+
+SELECT department_id, AVG(salary) AS avg_salary
+FROM employees
+GROUP BY department_id;
+
+✅ Aggregates with HAVING
+SELECT department_id, COUNT(*) AS total_employees
+FROM employees
+GROUP BY department_id
+HAVING COUNT(*) > 5;
+
+✅ Multiple Aggregates Together
+SELECT 
+  COUNT(*) AS total,
+  SUM(salary) AS total_salary,
+  AVG(salary) AS avg_salary,
+  MIN(salary) AS min_salary,
+  MAX(salary) AS max_salary
+FROM employees;
